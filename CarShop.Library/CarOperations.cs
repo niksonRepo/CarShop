@@ -8,7 +8,7 @@ namespace CarShop.Library
 {
     public class CarOperations: ICarOperations
     {
-        private List<Car> ListOfCars = new List<Car>();
+        public List<Car> ListOfCars = new List<Car>();
 
         public void AddCarToTheList(Car car)
         {
@@ -24,8 +24,8 @@ namespace CarShop.Library
         {
             return null;
         }
-
-        public string GetRecipiet()
+        
+        public string GetReceipt()
         {
             return null;
         }
