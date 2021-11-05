@@ -1,10 +1,14 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using CarShop.Library;
 
 namespace CarShop.Frontend
 {
     class Program
-    {
+    {   
+        static readonly CarOperations CarOperator = new CarOperations();
+
         static void Main(string[] args)
         {
             ShowMenu();
@@ -62,10 +66,21 @@ namespace CarShop.Frontend
 
         public static void AddCarToTheList()
         {
-            var car = CreateCarObject();
-            var carOperator = new CarOperations();
+            var continues = true;
 
-            carOperator.AddCarToTheList(car);
+            while (continues)
+            {
+                var car = CreateCarObject();
+                CarOperator.AddCarToTheList(car);
+
+                Console.WriteLine("Do you want to create more cars?(Yes/No)");
+                
+                var yesNo = Console.ReadLine();
+                if (yesNo != "Yes")
+                {
+                    continues = false;
+                }
+            }
         }
     }
 }
