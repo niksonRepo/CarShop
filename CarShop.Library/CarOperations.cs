@@ -8,11 +8,14 @@ namespace CarShop.Library
 {
     public class CarOperations: ICarOperations
     {
-        public List<Car> ListOfCars = new List<Car>();
+        //public List<Car> ListOfCars = new List<Car>();
+        public Car[] CarArray = new Car[100];
 
         public void AddCarToTheList(Car car)
         {
-            ListOfCars.Add(car);
+            //ListOfCars.Add(car);
+            var count = CarArray.Count(x => x != null);
+            CarArray[count] = car;
         }
 
         public int FindAvailableCarsCount()
