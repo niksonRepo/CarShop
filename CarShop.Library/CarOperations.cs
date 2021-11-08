@@ -14,18 +14,29 @@ namespace CarShop.Library
         public void AddCarToTheList(Car car)
         {
             //ListOfCars.Add(car);
-            var count = CarArray.Count(x => x != null);
-            CarArray[count] = car;
+            var index = CarArray.Count(x => x != null);
+            CarArray[index] = car;
         }
 
         public int FindAvailableCarsCount()
         {
-            return 1;
+            return CarArray.Count(x => x != null && x.IsAvailable);
         }
 
-        public Car FindCar(int year)
+        public Car[] FindCarByYear(int year)
         {
-            return null;
+            return CarArray.Where(x => x != null && x.Year == year).ToArray();
+        }
+        
+        public void ByCar(int id)
+        {
+            var selectedCar = CarArray.FirstOrDefault(x => x.Id == id);
+
+            if (selectedCar != null)
+            {
+                selectedCar.Sold = true;
+                selectedCar.IsAvailable = false;
+            }
         }
         
         public string GetReceipt()
