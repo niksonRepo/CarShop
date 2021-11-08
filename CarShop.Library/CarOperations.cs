@@ -41,6 +41,7 @@ namespace CarShop.Library
         
         public string GetReceipt()
         {
+            //create new class with props
             return null;
         }
     }
