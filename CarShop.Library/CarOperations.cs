@@ -9,6 +9,7 @@ namespace CarShop.Library
     public class CarOperations : ICarOperations
     {
         public Car[] CarArray = new Car[100];
+        //var carList = new List<Car>();
 
         public void AddCarToTheList(Car car)
         {
@@ -34,7 +35,7 @@ namespace CarShop.Library
             {
                 selectedCar.Sold = true;
                 selectedCar.IsAvailable = false;
-
+                //
                 Console.WriteLine(
                     $"Congratulation with purchasing car : {selectedCar.Model}. Would you like to have receipt(Yes/No)?");
 
