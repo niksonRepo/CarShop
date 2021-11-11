@@ -60,31 +60,11 @@ namespace CarShop.Library
 
         public void AddCarToTheList(Car car)
         {
-            var id = 0;
-            var continues = true;
-
-            while (continues)
-            {
-                CarList.Add(car);
-
-                UserOutput.DoYouWantToAddMoreCarsMessage();
-
-                var yesNo = Console.ReadLine();
-
-                if (yesNo != "Yes")
-                {
-                    continues = false;
-                    UserOutput.ShowMenu();
-                }
-
-                id++;
-            }
+            CarList.Add(car);
         }
 
-        public void GetCarByYear()
+        public void GetCarByYear(int year)
         {
-            UserOutput.ProvideYearMessage();
-            var year = Convert.ToInt32(Console.ReadLine());
             var carArray = FindCarByYear(year);
 
             foreach (var car in carArray)
