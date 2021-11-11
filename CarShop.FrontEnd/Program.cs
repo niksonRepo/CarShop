@@ -7,11 +7,11 @@ namespace CarShop.Frontend
 {
     class Program
     {
-        static readonly CarOperations CarOperator = new CarOperations();
+        static readonly CarOperations CarOperator = new();
 
         static void Main(string[] args)
         {
-            CarOperator.ShowMenu();
+            UserOutput.ShowMenu();
 
             var exit = "continue";
 
@@ -28,7 +28,8 @@ namespace CarShop.Frontend
                 {
                     case "1":
                         //Add car to the list
-                        CarOperator.AddCarToTheList();
+                        var car = CreateCarObject();
+                        CarOperator.AddCarToTheList(car);
                         break;
                     case "2":
                         //Find a car by is available
@@ -44,10 +45,36 @@ namespace CarShop.Frontend
                         break;
                     case "5":
                         //Buying a car
-                        CarOperator.BuyCar();
+                        UserOutput.ProvideCarIdMessage();
+                        var id = Convert.ToInt32(Console.ReadLine());
+                        
+                        CarOperator.ByCar(id);
+                        
+                        var receiptData = CarOperator.GetReceipt(CarOperator.CarList.FirstOrDefault(x => x.Id == id));
+                        UserOutput.ReceiptMessage(receiptData);
+
                         break;
                 }
             };
+        }
+        
+        public static Car CreateCarObject()
+        {
+            var car = new Car();
+            
+            UserOutput.ChooseModelMessage();
+            car.Model = Console.ReadLine();
+
+            UserOutput.ChooseModelMessage();
+            car.Model = Console.ReadLine();
+
+            UserOutput.ChooseColorMessage();
+            car.Color = Console.ReadLine();
+
+            UserOutput.ChooseYearMessage();
+            car.Year = Convert.ToInt32(Console.ReadLine());
+
+            return car;
         }
     }
 }
