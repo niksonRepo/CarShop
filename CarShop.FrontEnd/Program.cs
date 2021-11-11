@@ -28,8 +28,7 @@ namespace CarShop.Frontend
                 {
                     case "1":
                         //Add car to the list
-                        var car = CreateCarObject();
-                        CarOperator.AddCarToTheList(car);
+                        AddingCarsToTheList();
                         break;
                     case "2":
                         //Find a car by is available
@@ -37,7 +36,9 @@ namespace CarShop.Frontend
                         break;
                     case "3":
                         //Get cars by year
-                        CarOperator.GetCarByYear();
+                        UserOutput.ProvideYearMessage();
+                        var year = Convert.ToInt32(Console.ReadLine());
+                        CarOperator.GetCarByYear(year);
                         break;
                     case "4":
                         //Show list of all presented cars
@@ -47,9 +48,9 @@ namespace CarShop.Frontend
                         //Buying a car
                         UserOutput.ProvideCarIdMessage();
                         var id = Convert.ToInt32(Console.ReadLine());
-                        
+
                         CarOperator.ByCar(id);
-                        
+
                         var receiptData = CarOperator.GetReceipt(CarOperator.CarList.FirstOrDefault(x => x.Id == id));
                         UserOutput.ReceiptMessage(receiptData);
 
@@ -57,13 +58,13 @@ namespace CarShop.Frontend
                 }
             };
         }
-        
+
         public static Car CreateCarObject()
         {
             var car = new Car();
-            
-            UserOutput.ChooseModelMessage();
-            car.Model = Console.ReadLine();
+
+            UserOutput.ChooseIdMessage();
+            car.Id = Convert.ToInt32(Console.ReadLine());
 
             UserOutput.ChooseModelMessage();
             car.Model = Console.ReadLine();
@@ -75,6 +76,26 @@ namespace CarShop.Frontend
             car.Year = Convert.ToInt32(Console.ReadLine());
 
             return car;
+        }
+
+        public static void AddingCarsToTheList()
+        {
+            var continues = true;
+
+            while (continues)
+            {
+                var car = CreateCarObject();
+                CarOperator.AddCarToTheList(car);
+
+                UserOutput.DoYouWantToAddMoreCarsMessage();
+
+                var yesNo = Console.ReadLine();
+
+                if (yesNo == "Yes") continue;
+
+                continues = false;
+                UserOutput.ShowMenu();
+            }
         }
     }
 }
