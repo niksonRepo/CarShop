@@ -7,9 +7,25 @@ namespace CarShop.Frontend
 {
     class Program
     {
-        static readonly CarOperations CarOperator = new();
+        private static readonly CarOperations CarOperator = new();
 
         static void Main(string[] args)
+        {
+            try
+            {
+                MainMethod();
+            }
+            catch (Exception exception)
+            {
+                Console.WriteLine($"Exception message: {exception.Message}");
+            }
+            finally
+            {
+                MainMethod();
+            }
+        }
+
+        public static void MainMethod()
         {
             UserOutput.ShowMenu();
 
@@ -19,7 +35,7 @@ namespace CarShop.Frontend
             {
                 var option = Console.ReadLine();
 
-                if (option is "exit")//if(option != null && option == exit)
+                if (option is "exit") //if(option != null && option == exit)
                 {
                     exit = option;
                 }
@@ -51,12 +67,16 @@ namespace CarShop.Frontend
 
                         CarOperator.ByCar(id);
 
-                        var receiptData = CarOperator.GetReceipt(CarOperator.CarList.FirstOrDefault(x => x.Id == id));
-                        UserOutput.ReceiptMessage(receiptData);
+                        var carObject = CarOperator.CarDictionary.FirstOrDefault(x => x.Key == id).Value;
+
+                        if (carObject != null)
+                        {
+                            UserOutput.ReceiptMessage(CarOperator.GetReceipt(carObject));
+                        }
 
                         break;
                 }
-            };
+            }
         }
 
         public static Car CreateCarObject()
