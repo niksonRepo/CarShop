@@ -8,29 +8,39 @@ namespace CarShop.Library
 {
     public class CarOperations : ICarOperations
     {
-        public List<Car> CarList = new();
-        
+        public Dictionary<int, Car> CarDictionary = new();
+
         public void FindAvailableCarsCount()
         {
-             var count = CarList.Count(x => x is {IsAvailable: true});
+            var count = CarDictionary.Count(x => x.Value != null && x.Value.IsAvailable == true);
              UserOutput.FindAvailableCarMessage(count);
         }
 
         public Car[] FindCarByYear(int year)
         {
-            return CarList.Where(x => x != null && x.Year == year).ToArray();
+            int index = 0;
+            var carArray = new Car[100];
+            var carList = CarDictionary.Where(x => x.Value != null && x.Value.Year == year);
+
+            foreach (var car in carList)
+            {
+                carArray[index] = car.Value;
+                index++;
+            }
+
+            return carArray;
         }
 
         public void ByCar(int id)
         {
-            var selectedCar = CarList.FirstOrDefault(x => x.Id == id);
+            var selectedCar = CarDictionary.FirstOrDefault(x => x.Value.Id == id);
 
-            if (selectedCar != null)
+            if (selectedCar.Value != null)
             {
-                selectedCar.Sold = true;
-                selectedCar.IsAvailable = false;
+                selectedCar.Value.Sold = true;
+                selectedCar.Value.IsAvailable = false;
 
-                UserOutput.CongratulationMessage(selectedCar.Model);
+                UserOutput.CongratulationMessage(selectedCar.Value.Model);
             }
             else
             {
@@ -60,7 +70,7 @@ namespace CarShop.Library
 
         public void AddCarToTheList(Car car)
         {
-            CarList.Add(car);
+            CarDictionary.Add(car.Id, car);
         }
 
         public void GetCarByYear(int year)
@@ -77,11 +87,11 @@ namespace CarShop.Library
         {
             var i = 0;
 
-            foreach (var car in CarList)
+            foreach (var car in CarDictionary)
             {
-                if (car != null)
+                if (car.Value != null)
                 {
-                    UserOutput.ShowListOfCarsMessage(car.Id, car.Model, i);
+                    UserOutput.ShowListOfCarsMessage(car.Value.Id, car.Value.Model, i);
                 }
 
                 i++;
