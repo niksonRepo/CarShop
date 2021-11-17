@@ -15,6 +15,14 @@ namespace CarShop.Frontend
             {
                 MainMethod();
             }
+            catch (FormatException exception)
+            {
+                Console.WriteLine($"Exception message: {exception.Message}");
+            }
+            catch (NullReferenceException exception)
+            {
+                Console.WriteLine($"Exception message: {exception.Message}");
+            }
             catch (Exception exception)
             {
                 Console.WriteLine($"Exception message: {exception.Message}");
@@ -23,6 +31,8 @@ namespace CarShop.Frontend
             {
                 MainMethod();
             }
+
+            Console.ReadLine();
         }
 
         public static void MainMethod()
@@ -84,8 +94,16 @@ namespace CarShop.Frontend
             var car = new Car();
 
             UserOutput.ChooseIdMessage();
-            car.Id = Convert.ToInt32(Console.ReadLine());
 
+            if (int.TryParse(Console.ReadLine(), out int id))
+            {
+                car.Id = id;
+            }
+            else
+            {
+                throw new Exception("Invalid car id");
+            }
+            
             UserOutput.ChooseModelMessage();
             car.Model = Console.ReadLine();
 
