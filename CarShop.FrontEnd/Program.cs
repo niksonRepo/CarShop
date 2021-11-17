@@ -13,8 +13,7 @@ namespace CarShop.Frontend
         {
             try
             {
-                CarOperator.GetDataFormFile();
-                //MainMethod();
+                MainMethod();
             }
             catch (Exception exception)
             {
