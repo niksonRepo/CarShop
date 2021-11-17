@@ -100,25 +100,5 @@ namespace CarShop.Library
                 i++;
             }
         }
-
-        public void GetDataFormFile()
-        {
-            if (File.Exists(TextFile)) {  
-                // Read entire text file content in one string    
-                string text = File.ReadAllText(TextFile);
-
-                var strArray = text.Split(',');
-                
-                foreach (var s in strArray)
-                {
-                    //s.Split(":")[]
-                }
-                Console.WriteLine(text);
-            }
-            else
-            {
-
-            }
-        }
     }
 }
