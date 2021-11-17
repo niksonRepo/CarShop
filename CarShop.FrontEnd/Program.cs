@@ -13,7 +13,8 @@ namespace CarShop.Frontend
         {
             try
             {
-                MainMethod();
+                CarOperator.GetDataFormFile();
+                //MainMethod();
             }
             catch (Exception exception)
             {
@@ -67,7 +68,7 @@ namespace CarShop.Frontend
 
                         CarOperator.ByCar(id);
 
-                        var carObject = CarOperator.CarDictionary.FirstOrDefault(x => x.Key == id).Value;
+                        var carObject = CarOperator.CarDictionary.FirstOrDefault(x => x.Id == id);
 
                         if (carObject != null)
                         {
