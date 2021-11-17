@@ -9,13 +9,11 @@ namespace CarShop.Library
 {
     public class CarOperations : ICarOperations
     {
-        private const string TextFile = @"C:\SchoolFiles\CarData.txt";
-
-        public List<Car> CarDictionary = new();
+        public List<Car> Carlist = new();
 
         public void FindAvailableCarsCount()
         {
-            var count = CarDictionary.Count(x => x != null && x.IsAvailable == true);
+            var count = Carlist.Count(x => x != null && x.IsAvailable == true);
              UserOutput.FindAvailableCarMessage(count);
         }
 
@@ -23,7 +21,7 @@ namespace CarShop.Library
         {
             int index = 0;
             var carArray = new Car[100];
-            var carList = CarDictionary.Where(x => x != null && x.Year == year);
+            var carList = Carlist.Where(x => x != null && x.Year == year);
 
             foreach (var car in carList)
             {
@@ -36,7 +34,7 @@ namespace CarShop.Library
 
         public void ByCar(int id)
         {
-            var selectedCar = CarDictionary.FirstOrDefault(x => x.Id == id);
+            var selectedCar = Carlist.FirstOrDefault(x => x.Id == id);
 
             if (selectedCar != null)
             {
@@ -73,7 +71,7 @@ namespace CarShop.Library
 
         public void AddCarToTheList(Car car)
         {
-            CarDictionary.Add(car);
+            Carlist.Add(car);
         }
 
         public void GetCarByYear(int year)
@@ -90,7 +88,7 @@ namespace CarShop.Library
         {
             var i = 0;
 
-            foreach (var car in CarDictionary)
+            foreach (var car in Carlist)
             {
                 if (car != null)
                 {
