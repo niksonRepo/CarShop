@@ -68,7 +68,7 @@ namespace CarShop.Frontend
 
                         CarOperator.ByCar(id);
 
-                        var carObject = CarOperator.CarDictionary.FirstOrDefault(x => x.Id == id);
+                        var carObject = CarOperator.Carlist.FirstOrDefault(x => x.Id == id);
 
                         if (carObject != null)
                         {
