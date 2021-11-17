@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -8,11 +9,13 @@ namespace CarShop.Library
 {
     public class CarOperations : ICarOperations
     {
-        public Dictionary<int, Car> CarDictionary = new();
+        private const string TextFile = @"C:\SchoolFiles\CarData.txt";
+
+        public List<Car> CarDictionary = new();
 
         public void FindAvailableCarsCount()
         {
-            var count = CarDictionary.Count(x => x.Value != null && x.Value.IsAvailable == true);
+            var count = CarDictionary.Count(x => x != null && x.IsAvailable == true);
              UserOutput.FindAvailableCarMessage(count);
         }
 
@@ -20,11 +23,11 @@ namespace CarShop.Library
         {
             int index = 0;
             var carArray = new Car[100];
-            var carList = CarDictionary.Where(x => x.Value != null && x.Value.Year == year);
+            var carList = CarDictionary.Where(x => x != null && x.Year == year);
 
             foreach (var car in carList)
             {
-                carArray[index] = car.Value;
+                carArray[index] = car;
                 index++;
             }
 
@@ -33,14 +36,14 @@ namespace CarShop.Library
 
         public void ByCar(int id)
         {
-            var selectedCar = CarDictionary.FirstOrDefault(x => x.Value.Id == id);
+            var selectedCar = CarDictionary.FirstOrDefault(x => x.Id == id);
 
-            if (selectedCar.Value != null)
+            if (selectedCar != null)
             {
-                selectedCar.Value.Sold = true;
-                selectedCar.Value.IsAvailable = false;
+                selectedCar.Sold = true;
+                selectedCar.IsAvailable = false;
 
-                UserOutput.CongratulationMessage(selectedCar.Value.Model);
+                UserOutput.CongratulationMessage(selectedCar.Model);
             }
             else
             {
@@ -70,7 +73,7 @@ namespace CarShop.Library
 
         public void AddCarToTheList(Car car)
         {
-            CarDictionary.Add(car.Id, car);
+            CarDictionary.Add(car);
         }
 
         public void GetCarByYear(int year)
@@ -89,12 +92,32 @@ namespace CarShop.Library
 
             foreach (var car in CarDictionary)
             {
-                if (car.Value != null)
+                if (car != null)
                 {
-                    UserOutput.ShowListOfCarsMessage(car.Value.Id, car.Value.Model, i);
+                    UserOutput.ShowListOfCarsMessage(car.Id, car.Model, i);
                 }
 
                 i++;
+            }
+        }
+
+        public void GetDataFormFile()
+        {
+            if (File.Exists(TextFile)) {  
+                // Read entire text file content in one string    
+                string text = File.ReadAllText(TextFile);
+
+                var strArray = text.Split(',');
+                
+                foreach (var s in strArray)
+                {
+                    //s.Split(":")[]
+                }
+                Console.WriteLine(text);
+            }
+            else
+            {
+
             }
         }
     }
