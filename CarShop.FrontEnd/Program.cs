@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using CarShop.Library;
 
@@ -7,7 +6,8 @@ namespace CarShop.Frontend
 {
     class Program
     {
-        private static readonly CarOperations CarOperator = new();
+        private static readonly CarOperator CarOperator = new();
+        private static readonly CarFileOperator CarFileOperator = new();
 
         static void Main(string[] args)
         {
@@ -58,25 +58,28 @@ namespace CarShop.Frontend
                         break;
                     case "2":
                         //Find a car by is available
-                        CarOperator.FindAvailableCarsCount();
+                        //CarOperator.FindAvailableCarsCount();
+                        CarFileOperator.FindAvailableCarsCount();
                         break;
                     case "3":
                         //Get cars by year
                         UserOutput.ProvideYearMessage();
                         var year = Convert.ToInt32(Console.ReadLine());
-                        CarOperator.GetCarByYear(year);
+                        //CarOperator.GetCarByYear(year);
+                        CarFileOperator.FindCarByYear(year);
                         break;
                     case "4":
                         //Show list of all presented cars
-                        CarOperator.ShowListOfAllCars();
+                        //CarOperator.ShowListOfAllCars();
+                        CarFileOperator.ShowListOfTheCars();
                         break;
                     case "5":
                         //Buying a car
                         UserOutput.ProvideCarIdMessage();
                         var id = Convert.ToInt32(Console.ReadLine());
 
-                        CarOperator.ByCar(id);
-
+                        //CarOperator.ByCar(id);
+                        CarFileOperator.ByCar(id);
                         var carObject = CarOperator.Carlist.FirstOrDefault(x => x.Id == id);
 
                         if (carObject != null)
@@ -123,8 +126,9 @@ namespace CarShop.Frontend
             while (continues)
             {
                 var car = CreateCarObject();
-                CarOperator.AddCarToTheList(car);
-
+                //CarOperator.AddCarToTheList(car);
+                
+                CarFileOperator.AddCarToFile(car);
                 UserOutput.DoYouWantToAddMoreCarsMessage();
 
                 var yesNo = Console.ReadLine();

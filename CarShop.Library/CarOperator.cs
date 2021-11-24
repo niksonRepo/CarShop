@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace CarShop.Library
 {
-    public class CarOperations : ICarOperations
+    public class CarOperator : ICarOperations
     {
         public List<Car> Carlist = new();
 
